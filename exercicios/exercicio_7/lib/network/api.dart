@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import '../models/new.model.dart';
+import '../models/news.model.dart';
 
 class Api {
   static Future<List<News>> retrieveLocalNews(BuildContext context) async {
@@ -12,19 +12,12 @@ class Api {
       throw ('Data retrieved from API is not a Map');
     }
 
-    List<News> newsList = [];
-
-    data.keys.forEach((key) {
-      var news = News(
-        title: key['title'],
-        description: key['description'],
-        imageUrl: key['image'],
-        contentUrl: key['url'],
-        author: key['author'],
-        category: key['category'],
-      );
-
-      newsList.add(news);
+    List<News> newsList = <News>[];
+    data['news'].forEach((value) {
+      if (value is Map) {
+        News newsItem = News.fromJson(value);
+        newsList.add(newsItem);
+      }
     });
 
     return newsList;

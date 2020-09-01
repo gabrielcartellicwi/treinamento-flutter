@@ -1,8 +1,44 @@
+import 'dart:io';
+
+import 'package:exercicio_7/models/news.model.dart';
+import 'package:exercicio_7/network/api.dart';
 import 'package:exercicio_7/ui/new.component.dart';
 import 'package:exercicio_7/utils/color.utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class FeedPage extends StatelessWidget {
+class FeedPage extends StatefulWidget {
+  @override
+  _FeedPageState createState() => _FeedPageState();
+}
+
+class _FeedPageState extends State<FeedPage> {
+  List<News> _news = <News>[];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    _loadData();
+  }
+
+  _loadData() async {
+    _news = await Api.retrieveLocalNews(context);
+    setState(() {});
+  }
+
+  Widget _loader() {
+    return Center(
+      child: Platform.isIOS
+          ? CupertinoActivityIndicator()
+          : CircularProgressIndicator(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,26 +57,13 @@ class FeedPage extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         color: ColorUtils.darkBackground,
-        child: SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            child: Column(
-              children: <Widget>[
-                NewsComponent(
-                  title:
-                      "Here's what it looked like when a Ukrainian fighter jet smacked into a road sign while landing on a highway",
-                  author: 'Tom Demerly',
-                  contentUrl:
-                      'https://www.businessinsider.com/ukrainian-fighter-jet-hits-road-sign-while-landing-on-highway-2020-8',
-                  imageUrl:
-                      'https://i.insider.com/5f4c7c887ffa48002894d16b?width=1200&format=jpeg',
-                  description:
-                      'Several Ukrainian combat jets and were practicing landings on a highway when one collided with a sign, narrowly avoiding a more serious accident....',
-                  category: 'general',
-                ),
-              ],
-            ),
-          ),
+        child: _news.isEmpty ? _loader() : ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            return NewsComponent(
+              news: _news[index],
+            );
+          },
+          itemCount: _news.length,
         ),
       ),
     );

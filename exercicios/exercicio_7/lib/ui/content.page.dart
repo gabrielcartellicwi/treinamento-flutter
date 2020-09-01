@@ -1,12 +1,12 @@
+import 'package:exercicio_7/models/news.model.dart';
 import 'package:exercicio_7/utils/color.utils.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ContentPageArguments {
-  final String contentUrl;
-  final String author;
+  final News news;
 
-  ContentPageArguments(this.contentUrl, this.author);
+  ContentPageArguments(this.news);
 }
 
 class ContentPage extends StatelessWidget {
@@ -22,7 +22,7 @@ class ContentPage extends StatelessWidget {
           elevation: 0,
           backgroundColor: ColorUtils.appBarBackground,
           title: Text(
-            args.author,
+            args.news.author,
             style: TextStyle(
               fontSize: 24,
             ),
@@ -31,7 +31,7 @@ class ContentPage extends StatelessWidget {
         ),
         body: Container(
           child: WebView(
-            initialUrl: args.contentUrl,
+            initialUrl: args.news.contentUrl,
             javascriptMode: JavascriptMode.unrestricted,
           ),
         ));

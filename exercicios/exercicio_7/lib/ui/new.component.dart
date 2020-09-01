@@ -1,36 +1,21 @@
+import 'package:exercicio_7/models/news.model.dart';
 import 'package:exercicio_7/ui/content.page.dart';
 import 'package:exercicio_7/utils/color.utils.dart';
 import 'package:flutter/material.dart';
 
 class NewsComponent extends StatelessWidget {
-  final String title;
-  final String description;
-  final String imageUrl;
-  final String contentUrl;
-  final String author;
-  final String category;
+  final News news;
 
   const NewsComponent({
-    @required this.title,
-    @required this.description,
-    @required this.imageUrl,
-    @required this.contentUrl,
-    @required this.author,
-    @required this.category,
-  })  : assert(title != null),
-        assert(description != null),
-        assert(imageUrl != null),
-        assert(contentUrl != null),
-        assert(author != null),
-        assert(category != null);
+    @required this.news,
+  })  : assert(news != null);
 
   _goToContentPage(BuildContext context) {
     Navigator.pushNamed(
       context,
       ContentPage.routeName,
       arguments: ContentPageArguments(
-        this.contentUrl,
-        this.author,
+        this.news,
       ),
     );
   }
@@ -39,7 +24,10 @@ class NewsComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        top: 23,
+        top: 12,
+        left: 24,
+        right: 24,
+        bottom: 12
       ),
       child: Container(
         width: 335,
@@ -54,7 +42,7 @@ class NewsComponent extends StatelessWidget {
               Stack(
                 children: <Widget>[
                   SizedBox(
-                    child: Image.network(imageUrl),
+                    child: Image.network(news.imageUrl),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(12),
@@ -64,7 +52,7 @@ class NewsComponent extends StatelessWidget {
                           color: ColorUtils.typeBackground,
                           borderRadius: BorderRadius.circular(4)),
                       child: Text(
-                        category,
+                        news.category,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -83,7 +71,7 @@ class NewsComponent extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      title,
+                      news.title,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -94,7 +82,7 @@ class NewsComponent extends StatelessWidget {
                       height: 11,
                     ),
                     Text(
-                      description,
+                      news.description,
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.white,
