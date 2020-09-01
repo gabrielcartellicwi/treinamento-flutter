@@ -27,13 +27,16 @@ class FeedPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 NewsComponent(
-                  title: 'TITLE',
-                  author: 'AUTHOR',
-                  contentUrl: 'URL',
+                  title:
+                      "Here's what it looked like when a Ukrainian fighter jet smacked into a road sign while landing on a highway",
+                  author: 'Tom Demerly',
+                  contentUrl:
+                      'https://www.businessinsider.com/ukrainian-fighter-jet-hits-road-sign-while-landing-on-highway-2020-8',
                   imageUrl:
                       'https://i.insider.com/5f4c7c887ffa48002894d16b?width=1200&format=jpeg',
-                  description: 'DESCRIPT',
-                  category: 'CATEGORY',
+                  description:
+                      'Several Ukrainian combat jets and were practicing landings on a highway when one collided with a sign, narrowly avoiding a more serious accident....',
+                  category: 'general',
                 ),
               ],
             ),

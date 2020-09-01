@@ -18,24 +18,22 @@ class ContentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: ColorUtils.appBarBackground,
-        title: Text(
-          args.author,
-          style: TextStyle(
-            fontSize: 24,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: ColorUtils.appBarBackground,
+          title: Text(
+            args.author,
+            style: TextStyle(
+              fontSize: 24,
+            ),
           ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: Container(
-        child: Text(args.contentUrl, style: TextStyle(fontSize: 10),),
-//        child: WebView(
-//          initialUrl: args.contentUrl,
-//          javascriptMode: JavascriptMode.unrestricted,
-//        ),
-      )
-    );
+        body: Container(
+          child: WebView(
+            initialUrl: args.contentUrl,
+            javascriptMode: JavascriptMode.unrestricted,
+          ),
+        ));
   }
 }
